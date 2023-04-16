@@ -21,7 +21,7 @@ urlpatterns = [
     path("blogs/", v.blogs, name="blogs"),
     path("about/", v.about, name="about"),
     path("/", v.empty),
-    path("//", v.show_one_blog),
+    path("//", v.show_one_blog, name="show_one_blog"),
     path("/comment/", v.comment),
     path("create/", v.create, name="create"),
     path("/update/", v.update),

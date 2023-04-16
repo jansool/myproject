@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+		input[type="submit"] {
+			background-color: hotpink;
+			color: #fff;
+			padding: 10px 20px;
+			border: none;
+			border-radius: 5px;
+			cursor: pointer;
+		}
+		input[type="password"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+        }
+		input[type="text"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+        }
+        input[type="email"] {
+            padding: 10px;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            border: none;
+        }
+        .btn {
+            display: inline-block;
+            background: hotpink;
+            color: #fff;
+            padding: 10px;
+            text-decoration: none;
+            border-radius: 5px;
+   }
+    </style>
+</head>
+<body style="background-color: lavenderblush">
+    <div style="padding: 20px; background-color: hotpink; border-radius: 5px">
+        <a href="{% url 'login' %}" class="btn">login   </a>
+        <a href="{% url 'register' %}" class="btn">register   </a>
+        <a href="{% url 'blogs' %}" class="btn">blogs   </a>
+        <a href="{% url 'create' %}" class="btn">create blog   </a>
+        <a href="{% url 'show_one_blog' %}" class="btn">about blog</a>
+    </div>
+    {% block content %}
+    {% endblock %}
+</body>
+</html>
