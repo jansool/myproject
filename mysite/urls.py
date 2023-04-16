@@ -18,17 +18,17 @@ from django.urls import path
 import myapp.views as v
 
 urlpatterns = [
-    path("blogs/", v.blog),
-    path("about/", v.about),
+    path("blogs/", v.blogs, name="blogs"),
+    path("about/", v.about, name="about"),
     path("/", v.empty),
     path("//", v.show_one_blog),
     path("/comment/", v.comment),
-    path("create/", v.create),
+    path("create/", v.create, name="create"),
     path("/update/", v.update),
     path("/delete/", v.delete),
     path("profile//", v.profile),
     path("change_password/", v.change_password),
-    path("register/", v.register),
-    path("login/", v.login),
+    path("register/", v.register, name="register"),
+    path("login/", v.login, name="login"),
     path("logout/", v.logout)
 ]

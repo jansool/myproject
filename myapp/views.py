@@ -1,11 +1,12 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
 def main(request):
     return HttpResponse('Hiiiiiiiiii')
 
 
-def blog(request):
+def blogs(request):
     return HttpResponse("Домашняя страница, потенциально, однажды там будут блоги :)")
 
 
