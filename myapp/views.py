@@ -1,12 +1,9 @@
 from django.http import HttpResponse
+from django.shortcuts import render
 
 
-def main(request):
-    return HttpResponse('Hiiiiiiiiii')
-
-
-def blog(request):
-    return HttpResponse("Домашняя страница, потенциально, однажды там будут блоги :)")
+def blogs(request):
+    return render(request, 'blogs.html')
 
 
 def about(request):
@@ -18,8 +15,7 @@ def empty(request):
 
 
 def show_one_blog(request):
-    return HttpResponse("""Потенциальная страница для просмотра одного блога. 
-    Динамический контент, который потенциально будет ходить в базу данных""")
+    return render(request, 'about_blog.html')
 
 
 def comment(request):
@@ -27,7 +23,7 @@ def comment(request):
 
 
 def create(request):
-    return HttpResponse("Создание нового поста")
+    return render(request, 'create_post.html')
 
 
 def update(request):
@@ -38,21 +34,21 @@ def delete(request):
     return HttpResponse("Удаление поста")
 
 
-def profile():
+def profile(request):
     return HttpResponse("Личная страница пользователя")
 
 
-def change_password():
+def change_password(request):
     return HttpResponse("Страничка для смены пароля")
 
 
-def register():
-    return HttpResponse("Регистрация пользователя")
+def register(request):
+    return render(request, 'registration.html')
 
 
-def login():
-    return HttpResponse("Логин")
+def login(request):
+    return render(request, 'login.html')
 
 
-def logout():
+def logout(request):
     return HttpResponse("Логаут")
