@@ -1,6 +1,7 @@
 from django.db import models
 from django.utils.text import slugify
 from django.core.validators import MinLengthValidator
+from django.contrib.auth.models import User
 
 
 class Topic(models.Model):
@@ -9,14 +10,6 @@ class Topic(models.Model):
 
     def __str__(self):
         return self.title
-
-
-class User(models.Model):
-    name = models.CharField(max_length=50)
-    prefers = models.ManyToManyField(Topic, related_name="topic_followers", blank=True, null=True)
-
-    def __str__(self):
-        return self.name
 
 
 class Post(models.Model):
