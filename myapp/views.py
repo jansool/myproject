@@ -1,9 +1,25 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from .models import Post
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
 
 
 def blogs(request):
-    return render(request, 'blogs.html')
+    posts = Post.objects.all()
+    posts_info = []
+    for post in posts:
+        related_topics = post.topic.all()[:3]
+        short_text = ' '.join(post.content.split()[:50]) + '...'
+        num_comments = post.post_comments.count()
+        posts_info.append({
+            'title': post.title,
+            'created_at': post.created_at,
+            'related_topics': related_topics,
+            'short_text': short_text,
+            'num_comments': num_comments,
+            'slug': post.slug,
+        })
+    return render(request, 'blogs.html', {'posts_info': posts_info})
 
 
 def about(request):
@@ -11,11 +27,26 @@ def about(request):
 
 
 def empty(request):
-    return HttpResponse(".")
+    posts = Post.objects.all()
+    posts_info = []
+    for post in posts:
+        related_topics = post.topic.all()[:3]
+        short_text = ' '.join(post.content.split()[:50]) + '...'
+        num_comments = post.post_comments.count()
+        posts_info.append({
+            'title': post.title,
+            'created_at': post.created_at,
+            'related_topics': related_topics,
+            'short_text': short_text,
+            'num_comments': num_comments,
+            'slug': post.slug,
+        })
+    return render(request, 'blogs.html', {'posts_info': posts_info})
 
 
-def show_one_blog(request):
-    return render(request, 'about_blog.html')
+def show_one_blog(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    return render(request, 'about_blog.html', {'post': post})
 
 
 def comment(request):
@@ -34,8 +65,14 @@ def delete(request):
     return HttpResponse("Удаление поста")
 
 
-def profile(request):
-    return HttpResponse("Личная страница пользователя")
+def profile(request, username):
+    user = get_object_or_404(User, username=username)
+    user_info = {
+        'username': user.username,
+        'email': user.email,
+        'posts': Post.objects.filter(user=user)
+    }
+    return render(request, 'profile.html', {'user_info': user_info})
 
 
 def change_password(request):

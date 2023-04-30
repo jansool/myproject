@@ -38,6 +38,13 @@
             text-decoration: none;
             border-radius: 5px;
         }
+        .posts_section{
+            background-color: white;
+            margin-bottom: 20px;
+            padding: 10px;
+            box-shadow: 0 0 5px rgba(0,0,0,0.3);
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body style="background-color: lavenderblush">
@@ -46,7 +53,6 @@
         <a href="{% url 'register' %}" class="btn">register   </a>
         <a href="{% url 'blogs' %}" class="btn">blogs   </a>
         <a href="{% url 'create' %}" class="btn">create blog   </a>
-        <a href="{% url 'show_one_blog' %}" class="btn">about blog</a>
     </div>
     {% block content %}
     {% endblock %}
