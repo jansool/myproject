@@ -1,0 +1,6 @@
+<div style="padding: 20px; background-color: hotpink; border-radius: 5px">
+    <a href="{% url 'blogs' %}" class="btn">Головна   </a>
+    <a href="{% url 'create' %}" class="btn">Створити пост   </a>
+    <a href="{% url 'profile' username=user.username %}" class="btn">Моя сторінка</a>
+    <a href="{% url 'logout_view'%}" class="btn">вийти</a>
+</div>

@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% include 'panel_for_registered.html' %}
     <h2>Профіль користувача {{ user_info.username }}</h2>
     <p>Email: {{ user_info.email }}</p>
     <p>Кількість публікацій: {{ user_info.posts.count }}</p>

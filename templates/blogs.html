@@ -1,6 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% include 'panel_for_registered.html' %}
+    {% include 'topic_list.html' %}
+    <form method="get" action="{% url 'blogs' %}">
+        <input type="text" name="search" placeholder="Search...">
+        <button type="submit">Search</button>
+    </form>
   <h1>List of posts</h1>
   <ul>
     {% for post in posts_info %}

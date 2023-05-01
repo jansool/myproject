@@ -21,16 +21,17 @@ import myapp.views as v
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("blogs/", v.blogs, name="blogs"),
+    path('blogs/<str:topic_name>/', v.blogs, name='blogs_topic'),
     path("about/", v.about, name="about"),
-    path("/", v.empty),
-    path("/<slug:slug>/", v.show_one_blog, name="show_one_blog"),
-    path("/comment/", v.comment),
+    path("", v.empty),
+    path("login_view/", v.login_view, name="login_view"),
+    path("comment/", v.comment),
     path("create/", v.create, name="create"),
-    path("/update/", v.update),
-    path("/delete/", v.delete),
+    path("update/", v.update),
+    path("delete/", v.delete),
     path("profile/<str:username>/", v.profile, name="profile"),
     path("change_password/", v.change_password),
     path("register/", v.register, name="register"),
-    path("login/", v.login, name="login"),
-    path("logout/", v.logout)
+    path("logout_view/", v.logout_view, name="logout_view"),
+    path("<slug:slug>/", v.show_one_blog, name="show_one_blog")
 ]

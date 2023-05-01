@@ -15,7 +15,8 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
+LOGIN_URL = '/login_view/'
+LOGIN_REDIRECT_URL = '/blogs/'
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -26,7 +27,6 @@ SECRET_KEY = 'django-insecure-g1ka*7+joa3lokh7=_ex-zo!^q&b^tp11u_g*^ireq^#)_tc&t
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 

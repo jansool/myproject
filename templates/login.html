@@ -1,12 +1,12 @@
 {% extends 'base.html' %}
 
 {% block content %}
-	<form style="">
-		<h1 style="margin-bottom: 30px;">Login</h1>
-		<label for="username">Username:</label>
-		<input type="text" id="username" name="username"><br><br>
-		<label for="password">Password:</label>
-		<input type="password" id="password" name="password"><br><br>
-		<input type="submit" value="Log In">
+    {% include 'panel_for_unregistered.html' %}
+	<form method="post">
+    {% csrf_token %}
+        <h1 style="margin-bottom: 30px;">Login</h1>
+    {{ form.as_p }}
+        <button type="submit">Увійти</button>
 	</form>
+    <a href="{% url 'register' %}">Ще не зареєстровані?</a>
 {% endblock %}
