@@ -3,14 +3,12 @@
 {% block content %}
   <h1>List of posts</h1>
   <ul>
-    {% for post in posts_info %}
+    {% for post in posts %}
         <div class="posts_section">
             <a href="{% url 'show_one_blog' slug=post.slug %}">{{ post.title }}</a>
             <p>Дата створення: {{post.created_at}}</p>
-            <p>Теми: {% for topic in post.related_topics %}
-                        {{ topic.title }}{% if not forloop.last %}, {% endif %}
-                    {% endfor %}</p>
-            <p>{{ post.short_text }}</p>
+            <p>Теми: {{ post.topic.first_three|join:', ' }}</p>
+            <p>{{ post.short_description }}</p>
             <p>Коментарів: {{ post.num_comments }}</p>
         </div>
     {% endfor %}

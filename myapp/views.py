@@ -6,42 +6,12 @@ from django.contrib.auth.models import User
 
 def blogs(request):
     posts = Post.objects.all()
-    posts_info = []
-    for post in posts:
-        related_topics = post.topic.all()[:3]
-        short_text = ' '.join(post.content.split()[:50]) + '...'
-        num_comments = post.post_comments.count()
-        posts_info.append({
-            'title': post.title,
-            'created_at': post.created_at,
-            'related_topics': related_topics,
-            'short_text': short_text,
-            'num_comments': num_comments,
-            'slug': post.slug,
-        })
-    return render(request, 'blogs.html', {'posts_info': posts_info})
+    return render(request, 'blogs.html', {'posts': posts})
 
 
 def about(request):
     return HttpResponse("Потенциально тут будет страница с описанием нашего блога.")
 
-
-def empty(request):
-    posts = Post.objects.all()
-    posts_info = []
-    for post in posts:
-        related_topics = post.topic.all()[:3]
-        short_text = ' '.join(post.content.split()[:50]) + '...'
-        num_comments = post.post_comments.count()
-        posts_info.append({
-            'title': post.title,
-            'created_at': post.created_at,
-            'related_topics': related_topics,
-            'short_text': short_text,
-            'num_comments': num_comments,
-            'slug': post.slug,
-        })
-    return render(request, 'blogs.html', {'posts_info': posts_info})
 
 
 def show_one_blog(request, slug):
@@ -65,14 +35,9 @@ def delete(request):
     return HttpResponse("Удаление поста")
 
 
-def profile(request, username):
-    user = get_object_or_404(User, username=username)
-    user_info = {
-        'username': user.username,
-        'email': user.email,
-        'posts': Post.objects.filter(user=user)
-    }
-    return render(request, 'profile.html', {'user_info': user_info})
+def profile(request):
+    user = request.user
+    return render(request, 'profile.html', {'user': user})
 
 
 def change_password(request):

@@ -22,7 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("blogs/", v.blogs, name="blogs"),
     path("about/", v.about, name="about"),
-    path("/", v.empty),
+    path("", v.blogs),
     path("/<slug:slug>/", v.show_one_blog, name="show_one_blog"),
     path("/comment/", v.comment),
     path("create/", v.create, name="create"),
