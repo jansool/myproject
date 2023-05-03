@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Профіль користувача {{ user.username }}</h2>
+    <p>Email: {{ user.email }}</p>
+    <p>Кількість публікацій: {{ user.post_set.count }}</p>
+    <h3>Список публікацій</h3>
+    <ul>
+        {% for post in user.post_set.all %}
+            <li><a href="{% url 'show_one_blog' post.slug %}">{{ post.title }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

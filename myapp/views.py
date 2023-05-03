@@ -1,21 +1,22 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from .models import Post
+from django.shortcuts import render, get_object_or_404
+from django.contrib.auth.models import User
 
 
 def blogs(request):
-    return render(request, 'blogs.html')
+    posts = Post.objects.all()
+    return render(request, 'blogs.html', {'posts': posts})
 
 
 def about(request):
     return HttpResponse("Потенциально тут будет страница с описанием нашего блога.")
 
 
-def empty(request):
-    return HttpResponse(".")
 
-
-def show_one_blog(request):
-    return render(request, 'about_blog.html')
+def show_one_blog(request, slug):
+    post = get_object_or_404(Post, slug=slug)
+    return render(request, 'about_blog.html', {'post': post})
 
 
 def comment(request):
@@ -35,7 +36,8 @@ def delete(request):
 
 
 def profile(request):
-    return HttpResponse("Личная страница пользователя")
+    user = request.user
+    return render(request, 'profile.html', {'user': user})
 
 
 def change_password(request):
