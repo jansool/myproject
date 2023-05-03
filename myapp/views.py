@@ -8,56 +8,22 @@ from django.contrib.auth.decorators import login_required
 
 
 @login_required(login_url='/login_view/')
-def blogs(request, topic_name=None):
+def blogs(request, topic=None):
     search = request.GET.get('search')
+    topics = Topic.objects.all()
     if search:
         posts = Post.objects.filter(title__icontains=search)
-    elif topic_name:
-        topic = Topic.objects.get(title=topic_name)
+    elif topic:
+        topic = Topic.objects.get(title=topic)
         posts = Post.objects.filter(topic=topic.id)
     else:
         posts = Post.objects.all()
-
-    topic_list = Topic.objects.all()
-    posts_info = []
-    for post in posts:
-        related_topics = post.topic.all()[:3]
-        short_text = ' '.join(post.content.split()[:50]) + '...'
-        num_comments = post.post_comments.count()
-        posts_info.append({
-            'title': post.title,
-            'created_at': post.created_at,
-            'related_topics': related_topics,
-            'short_text': short_text,
-            'num_comments': num_comments,
-            'slug': post.slug,
-        })
-    return render(request, 'blogs.html', {'posts_info': posts_info, 'topic_list': topic_list})
-
+    return render(request, 'blogs.html', {'posts': posts, 'topics': topics})
 
 
 @login_required(login_url='/login_view/')
 def about(request):
     return HttpResponse("Потенциально тут будет страница с описанием нашего блога.")
-
-
-@login_required(login_url='/login_view/')
-def empty(request):
-    posts = Post.objects.all()
-    posts_info = []
-    for post in posts:
-        related_topics = post.topic.all()[:3]
-        short_text = ' '.join(post.content.split()[:50]) + '...'
-        num_comments = post.post_comments.count()
-        posts_info.append({
-            'title': post.title,
-            'created_at': post.created_at,
-            'related_topics': related_topics,
-            'short_text': short_text,
-            'num_comments': num_comments,
-            'slug': post.slug,
-        })
-    return render(request, 'blogs.html', {'posts_info': posts_info})
 
 
 @login_required(login_url='/login_view/')
@@ -109,14 +75,9 @@ def delete(request):
 
 
 @login_required(login_url='/login_view/')
-def profile(request, username):
-    user = get_object_or_404(User, username=username)
-    user_info = {
-        'username': user.username,
-        'email': user.email,
-        'posts': Post.objects.filter(user=user)
-    }
-    return render(request, 'profile.html', {'user_info': user_info})
+def profile(request):
+    user = request.user
+    return render(request, 'profile.html', {'user': user})
 
 
 @login_required(login_url='/login_view/')
@@ -149,7 +110,7 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('profile', username)
+                return redirect('profile')
     else:
         form = LoginForm()
     return render(request, 'login.html', {'form': form})
