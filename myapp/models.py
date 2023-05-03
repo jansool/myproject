@@ -7,6 +7,11 @@ class TopicManager(models.Manager):
     def first_three(self):
         return self.all()[:3]
 
+class TopicManager(models.Manager):
+    def first_three(self):
+        return self.all()[:3]
+
+
 class Topic(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()

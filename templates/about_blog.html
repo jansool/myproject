@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    {% include 'panel_for_registered.html' %}
     <h2>{{ post.title }}</h2>
-    <p>Автор: <a href="{% url 'profile' username=post.user %}">{{ post.user }}</a></p>
+    <p>Автор: {{ post.user }}</p>
     <p>Дата створення: {{ post.created_at }}</p>
     <p>Зачеплені теми:</p>
         <ul>
@@ -12,9 +13,14 @@
         </ul>
     <p>{{ post.content }}</p>
     <h3>Коментарі:</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Відправити</button>
+    </form>
         <ul>
             {% for comment in post.post_comments.all %}
-                <li>{{ comment.content }} (від <a href="{% url 'profile' username=comment.user %}">{{ comment.user }}</a>)</li>
+                <li>{{ comment.content }} (від {{ comment.user }})</li>
             {% endfor %}
         </ul>
 {% endblock %}

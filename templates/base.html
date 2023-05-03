@@ -45,15 +45,19 @@
             box-shadow: 0 0 5px rgba(0,0,0,0.3);
             border-radius: 5px;
         }
+        a{
+            color: hotpink;
+        }
     </style>
 </head>
 <body style="background-color: lavenderblush">
-    <div style="padding: 20px; background-color: hotpink; border-radius: 5px">
-        <a href="{% url 'login' %}" class="btn">login   </a>
-        <a href="{% url 'register' %}" class="btn">register   </a>
-        <a href="{% url 'blogs' %}" class="btn">blogs   </a>
-        <a href="{% url 'create' %}" class="btn">create blog   </a>
-    </div>
+    {% if user.is_authenticated %}
+        {% block panel_for_registered %}
+        {% endblock %}
+    {% else %}
+        {% block panel_for_unregistered %}
+        {% endblock %}
+    {% endif %}
     {% block content %}
     {% endblock %}
 </body>

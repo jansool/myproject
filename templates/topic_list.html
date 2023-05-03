@@ -1,0 +1,5 @@
+<ul>
+{% for topic in topic_list %}
+    <li><a href="{% url 'blogs_topic' topic_name=topic.title %}">{{ topic.title }}</a></li>
+{% endfor %}
+</ul>
